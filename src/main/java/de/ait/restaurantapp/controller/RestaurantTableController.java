@@ -17,7 +17,7 @@ import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/tables")
-public class RestaurantTableController {
+public class пRestaurantTableController {
 
     private final RestaurantTableServiceImpl restaurantTableServiceImpl;
 
