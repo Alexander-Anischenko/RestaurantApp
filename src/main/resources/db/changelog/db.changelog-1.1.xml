@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="
+                     http://www.liquibase.org/xml/ns/dbchangelog
+                     http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-4.0.xsd">
+
+    <!-- ChangeSet 3: Обновление таблицы reservations под новую сущность Reservation -->
+    <changeSet id="3" author="tatiana novikova">
+        <!-- Добавляем обязательный код бронирования -->
+        <addColumn tableName="reservations">
+            <column name="reservation_code" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </addColumn>
+
+        <!-- Переименовываем столбец guest_number в guest_count -->
+        <renameColumn tableName="reservations"
+                      oldColumnName="guest_number"
+                      newColumnName="guest_count"
+                      columnDataType="INT"/>
+
+        <!-- Добавляем флаг is_admin -->
+        <addColumn tableName="reservations">
+            <column name="is_admin" type="BOOLEAN"/>
+        </addColumn>
+
+        <rollback>
+            <!-- Откат изменений -->
+            <renameColumn tableName="reservations"
+                          oldColumnName="guest_count"
+                          newColumnName="guest_number"
+                          columnDataType="INT"/>
+            <dropColumn tableName="reservations" columnName="reservation_code"/>
+            <dropColumn tableName="reservations" columnName="is_admin"/>
+        </rollback>
+    </changeSet>
+
+</databaseChangeLog>

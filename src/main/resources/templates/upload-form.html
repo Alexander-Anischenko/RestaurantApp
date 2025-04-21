@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Загрузка файла в базу данных</title>
+
+</head>
+<body>
+<h1>Загрузка файла</h1>
+<p th:text="${message}"></p>
+<br>
+<form th:action="@{/file/upload}" method="post" enctype="multipart/form-data">
+  <input type="file" name="file">
+    <br>
+  <button type="submit">Загрузить файл</button>
+</form>
+
+</body>
+</html>

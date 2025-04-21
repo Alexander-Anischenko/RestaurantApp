@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Отмена Резервации Столика</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Salsa:wght@400&display=swap"
+            rel="stylesheet">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Alegreya%20Sans%20SC:wght@700&display=swap"
+            rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            padding: 0;
+            margin: 0;
+            border: none;
+
+            box-sizing: border-box;
+        }
+
+        *::before,
+        *::after {
+            display: inline-block;
+        }
+
+        a {
+            text-decoration: none;
+            display: inline-block;
+            color: inherit;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            vertical-align: middle;
+        }
+
+        html,
+        body {
+            line-height: 1;
+            height: 100%;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: inherit;
+            font-size: inherit;
+        }
+
+        .section-cansellation {
+            padding-top: 30px;
+            color: rgba(65, 54, 37, 0.79);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: linear-gradient(0deg, rgba(175, 145, 145, 0.16) 0%, rgba(175, 145, 145, 0.16) 100%), #E8D7B7;
+        }
+
+        .table-cansellation {
+            position: relative;
+            background: linear-gradient(0deg, rgba(175, 145, 145, 0.16) 0%, rgba(175, 145, 145, 0.16) 100%), #E8D7B7;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: rgba(65, 54, 37, 0.79);
+            font-family: "Alegreya Sans SC", sans-serif;
+            background-color: #f0e8dc;
+            border: 2px solid #D5CCBA;
+            border-radius: 10px;
+        }
+
+        .message:has(.message__test:not(:empty)) {
+            display: block;
+        }
+
+        .message:has(.message__test:empty) {
+            display: none;
+        }
+
+        .message__test {
+            position: absolute;
+            top: 50px;
+            bottom: 50px;
+            right: 20px;
+            left: 20px;
+            background-color: #f0e8dc;
+            text-align: center;
+            line-height: 240px;
+            z-index: 3;
+            font-size: 30px;
+            border-radius: 10px;
+        }
+
+        .table-cansellation__form {
+            position: relative;
+        }
+
+        .table-cansellation__form::before {
+            position: absolute;
+            bottom: 60px;
+            left: 3px;
+            content: "";
+            width: 100px;
+            height: 100px;
+            background: url(https://i.postimg.cc/3xR36vWh/deco-1.avif) 0 0 / cover no-repeat;
+            transform: rotate(90deg);
+        }
+
+        .table-cansellation__form::after {
+            position: absolute;
+            top: -5px;
+            right: 6px;
+            content: "";
+            width: 100px;
+            height: 100px;
+            background: url(https://i.postimg.cc/3xR36vWh/deco-1.avif) 0 0 / cover no-repeat;
+            transform: rotate(270deg);
+        }
+
+        .table-cansellation__img {
+            max-width: 600px;
+            width: 90%;
+        }
+
+        .table-cansellation__title {
+            margin: -30px 20px 20px;
+            padding: 10px;
+            background: #E6D7C4;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            font-weight: 700;
+            letter-spacing: 3px;
+            font-size: 50px;
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 10px;
+        }
+
+        .form {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 10px;
+            margin-bottom: 20px;
+        }
+
+        .form__data-container {
+            background-color: #FDFAEF;
+            padding: 40px;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .form__data-container > div:not(:last-child) {
+            margin-bottom: 30px;
+        }
+
+        .form__group {
+            position: relative;
+            font-family: "Salsa", serif;
+        }
+
+        .form__label {
+            position: absolute;
+            top: -12px;
+            left: 10px;
+            display: block;
+            font-size: 20px;
+            background-color: #FDFAEF;
+            padding: 0 10px;
+
+        }
+
+        .form__input {
+            min-width: 400px;
+            background-color: #FDFAEF;
+            border: 1px solid #CBCBCB;
+            border-radius: 10px;
+            padding: 15px;
+            font-size: 20px;
+            color: inherit;
+            font-family: inherit;
+        }
+
+        .form__input::placeholder {
+            opacity: 0.5;
+        }
+
+        .form__input:focus {
+            outline: none;
+            box-shadow: 3px 3px 8px #E3C8AE;
+        }
+
+        .form__submit-btn {
+            color: inherit;
+            font-weight: 700;
+            font-family: inherit;
+            padding: 15px;
+            background-color: #E3C8AE;
+            border-radius: 15px;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            box-shadow: 0 5px 0 0 rgba(65, 54, 37, 0.79);;
+            transition: all 0.3s;
+            position: relative;
+            top: 0;
+            max-width: 200px;
+            cursor: pointer;
+        }
+
+        .form__submit-btn:hover {
+            background-color: #d6b390;
+        }
+
+        .form__submit-btn:active {
+            top: 3px;
+            box-shadow: 0 2px 0px 0px rgba(65, 54, 37, 0.79);;
+        }
+
+        .table-cansellation__link {
+            position: relative;
+            margin-bottom: 20px;
+            cursor: pointer;
+        }
+
+        .table-cansellation__link::before {
+            content: "";
+            position: absolute;
+            top: 12px;
+            left: -10px;
+            width: 240px;
+            height: 20px;
+            background: url("https://i.postimg.cc/1zwJ3c3Y/vintage-underline.png") no-repeat 0 0 / 100% 100%;
+            opacity: 0;
+            transform: translateY(5px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+        }
+
+        .table-cansellation__link:hover::before {
+            opacity: 0.6;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+
+<body>
+<!-- <div th:if="${message}">
+  <p th:text="${message}"></p>
+</div> -->
+<div class="section-cansellation">
+    <div class="table-cansellation">
+        <h1 class="table-cansellation__title">Отмена Резервации Столика</h1>
+        <!-- <div th:if="${message}">
+          <p th:text="${message}"></p>
+        </div> -->
+        <div th:if="${message}" class="table-cansellation__message message">
+            <p th:text="${message}" class="message__test"></p>
+        </div>
+        <form class="table-cansellation__form form"
+              th:action="@{/restaurant/cancel}" method="post">
+            <div class="form__data-container">
+                <div class="form__group">
+                    <label for="name" class="form__label">Введите код брони
+                    </label>
+                    <input class="form__input" id="name" type="text" th:value="${reservationCode}"
+                           name="reservationCode" placeholder="Введите код из Email"
+                           required>
+                </div>
+            </div>
+            <button class="form__submit-btn" type="submit">Отменить</button>
+        </form>
+        <div class="table-cansellation__link">
+            <a th:href="@{/restaurant}">Вернуться на Главную Страницу</a>
+        </div>
+    </div>
+</div>
+</body>
+</html>

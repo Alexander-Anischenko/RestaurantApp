@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Список файлов</title>
+
+</head>
+<body>
+<h1>Список файлов</h1>
+
+<p th:if="${message}" th:text="${message}"></p>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>Имя файла</th>
+    <th>Действия</th>
+  </tr>
+  <tr th:each="file : ${files}">
+    <td th:text="${file.id}"></td>
+    <td th:text="${file.name}"></td>
+    <td>
+      <a th:href="@{'/file/' + ${file.id}}">Скачать</a>
+      |
+      <form th:action="@{'/file/delete-file/' + ${file.id}}" method="post" style="display:inline;">
+        <button type="submit">Удалить</button>
+      </form>
+    </td>
+  </tr>
+</table>
+</body>
+</html>

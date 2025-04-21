@@ -18,8 +18,11 @@ import java.time.LocalDateTime;
 public class Reservation {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(nullable = false)
+    private String reservationCode;
 
     @Column(nullable = false)
     private LocalDateTime startDateTime;
@@ -34,7 +37,7 @@ public class Reservation {
     private String customerEmail;
 
     @Column(nullable = false)
-    private int guestNumber;
+    private int guestCount;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "restaurant_table_id", nullable = false)
@@ -42,4 +45,8 @@ public class Reservation {
 
     @Enumerated(EnumType.STRING)
     private ReservationStatus reservationStatus;
+
+    // indicator that the reservation was created by admin
+    @Column
+    private boolean isAdmin;
 }

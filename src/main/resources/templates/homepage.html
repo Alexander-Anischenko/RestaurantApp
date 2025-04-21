@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная | Ресторан</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Salsa:wght@400&display=swap"
+            rel="stylesheet">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Alegreya%20Sans%20SC:wght@700&display=swap"
+            rel="stylesheet">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Lobster:wght@400&display=swap"
+            rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            padding: 0;
+            margin: 0;
+            border: none;
+
+            box-sizing: border-box;
+        }
+
+        *::before,
+        *::after {
+            display: inline-block;
+        }
+
+        a {
+            text-decoration: none;
+            display: inline-block;
+            color: inherit;
+        }
+
+        li {
+            list-style: none;
+        }
+
+        img {
+            max-width: 100%;
+            vertical-align: middle;
+        }
+
+        html,
+        body {
+            line-height: 1;
+            height: 100%;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4,
+        h5,
+        h6 {
+            font-weight: inherit;
+            font-size: inherit;
+        }
+
+        .wrapper {
+            overflow: clip;
+            min-height: 100%;
+            background-color: #F5EEDB;
+        }
+
+        [class $="__container"] {
+            max-width: 1230px;
+            margin: 0 auto;
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+
+        .header {
+            margin-bottom: 30px;
+        }
+
+        .header__content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .header__logo-container {
+            max-width: 100px;
+            width: 100%;
+        }
+
+        .header__logo {
+            width: 100%;
+        }
+
+        .header__title {
+            font-family: "Alegreya Sans SC", sans-serif;
+            color: #68462D;
+            margin-top: -30px;
+            font-size: 50px;
+        }
+
+        .header__menu {
+            font-family: "Salsa", sans-serif;
+        }
+
+        .menu {
+        }
+
+        .menu__list {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .menu__item {
+            position: relative;
+            cursor: pointer;
+            font-size: 20px;
+        }
+
+        .menu__item::before {
+            content: "";
+            position: absolute;
+            top: 20px;
+            left: -10px;
+            width: 240px;
+            height: 20px;
+            background: url("https://i.postimg.cc/1zwJ3c3Y/vintage-underline.png") no-repeat 0 0 / 100% 100%;
+            opacity: 0;
+            transform: translateY(5px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            pointer-events: none;
+        }
+
+        .menu__item:hover::before {
+            opacity: 0.6;
+            transform: translateY(0);
+        }
+
+        .page__content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .page__title {
+            position: relative;
+            padding: 20px;
+            border: 2px solid #D5CCBA;
+            border-radius: 10px;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            letter-spacing: 3px;
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            color: #443A36;
+            text-align: center;
+            font-size: 40px;
+            font-family: "Lobster", serif;
+            font-weight: 700;
+            background: #E6D7C4;
+        }
+
+
+        .page__menu-img {
+            display: flex;
+            align-items: center;
+        }
+
+        .page__menu-container {
+            max-width: 250px;
+        }
+
+        .page__menu-link {
+            padding: 20px;
+            border: 2px solid #D5CCBA;
+            border-radius: 10px;
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+            letter-spacing: 3px;
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            color: #443A36;
+            background: #E6D7C4;
+        }
+
+        .page__menu-link:hover {
+            box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25) inset;
+        }
+
+        .page__menu-text {
+            font-size: 20px;
+            text-align: center;
+            font-family: "Lobster", serif;
+        }
+
+        .page__img-container {
+            max-width: 600px;
+
+            width: 100%;
+            align-self: left;
+        }
+
+        .page__img {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+<div class="wrapper">
+    <header class="header">
+        <div class="header__container">
+            <div class="header__content">
+                <div class="header__logo-container">
+                    <img class="header__logo"
+                         src="https://i.postimg.cc/RVXCZhCc/restaurant-logo.png"
+                         alt="restaurant logo">
+                </div>
+                <h1 class="header__title">Добро пожаловать в наш ресторан!</h1>
+                <nav class="header__menu menu">
+                    <ul class="menu__list">
+                        <li class="menu__item"><a class="menu__link"
+                                                  th:href="@{/restaurant/admin}">Панель
+                            администратора</a></li>
+                        <li class="menu__item"><a class="menu__link"
+                                                  th:href="@{/restaurant/reserve}">Забронировать
+                            столик</a></li>
+                        <li class="menu__item"><a class="menu__link"
+                                                  th:href="@{/restaurant/cancel}">Отменить
+                            бронирование</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+    <main class="page">
+        <div class="page__container">
+            <div class="page__content">
+                <h2 class="page__title">Ощутите изысканный вкус и атмосферу <br>уюта
+                    в
+                    нашем ресторане</h2>
+              
+                <div class="page__menu-img">
+                    <div class="page__menu-container">
+                        <a class="page__menu-link" href="">
+                            <img class="page__menu-img" src="https://i.postimg.cc/rpSxb5c1/menu.png"
+                                 alt="Menu to download">
+                            <p class="page__menu-text">Скачать Меню (PDF)</p>
+                        </a>
+                    </div>
+                    <div class="page__img-container">
+                        <img src="https://i.postimg.cc/mkS9D4ht/foto-1.avif" alt="banner"
+                             class="page__img">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+</body>
+</html>
